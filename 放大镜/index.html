@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .content {
+            position: relative;
+        }
+
+        .mouse {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: skyblue;
+            opacity: .5;
+            display: none;
+            cursor: pointer;
+        }
+
+        .small {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+        }
+
+        .big {
+            position: absolute;
+            left: 410px;
+            width: 300px;
+            height: 300px;
+            overflow: hidden;
+            display: none;
+        }
+
+        .big img {
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <div class="small">
+            <div class="mouse"></div>
+            <img src="img/small.jpg" alt="">
+        </div>
+        <div class="big">
+            <img src="img/big.jpg" alt="">
+        </div>
+    </div>
+
+
+    <script>
+        var small = document.querySelector('.small');
+        var mouse = document.querySelector('.mouse');
+        var big = document.querySelector('.big');
+        var img = big.getElementsByTagName('img')[0];
+
+        small.onmouseenter = function (e) {
+            mouse.style.display = 'block';
+            big.style.display = 'block';
+
+        }
+
+
+        small.onmousemove = function (e) {
+            //获取鼠标的坐标
+            var mouseX = e.clientX;
+            var mouseY = e.clientY;
+            // console.log(mouseX, mouseY);
+
+            var btnW = mouse.offsetWidth;
+            var btnH = mouse.offsetHeight;
+            // console.log(btnW, btnH)
+
+            var moveX = mouseX - btnW / 2;
+            var moveY = mouseY - btnH / 2;
+            //是鼠标永远在中间
+
+            var maxX = small.offsetWidth - mouse.offsetWidth;
+            var maxY = small.offsetHeight - mouse.offsetHeight;
+            if (moveX > maxX) {
+                moveX = maxX;
+            } else {
+                moveX = moveX;
+            }
+            if (moveX < 0) {
+                moveX = 0;
+            } else {
+                moveX = moveX;
+            }
+            if (moveY > maxY) {
+                moveY = maxY;
+            } else {
+                moveY = moveY;
+            }
+            if (moveY < 0) {
+                moveY = 0;
+            } else {
+                moveY = moveY;
+            }
+
+            mouse.style.left = moveX + 'px';
+            mouse.style.top = moveY + 'px';
+
+            var imgl = (moveX * (img.offsetWidth - big.offsetWidth)) / big.offsetWidth;
+            var imgh = (moveY * (img.offsetHeight - big.offsetHeight)) / big.offsetHeight;
+            console.log(imgl)
+
+
+            img.style.left = -imgl + 'px';
+            img.style.top = -imgh + 'px';
+
+        }
+
+
+
+
+
+
+        small.onmouseleave = function () {
+            big.style.display = 'none';
+            mouse.style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>
