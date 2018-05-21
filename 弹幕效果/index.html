@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    html,
+    body {
+        height: 100%;
+    }
+
+    .fly {
+        position: relative;
+        height: 86%;
+        background: skyblue;
+        overflow: hidden;
+    }
+
+    .user {
+        height: 14%;
+        background: saddlebrown;
+    }
+
+    .userpush {
+        margin: 0 auto;
+        width: 50%;
+        height: 100%;
+        text-align: center;
+        line-height: 30px;
+        font-size: 20px;
+        font-weight: bold;
+        color: coral;
+    }
+
+    span {
+        display: inline-block;
+        height: 30px;
+        vertical-align: middle;
+    }
+
+    input {
+        outline: 0;
+        height: 30px;
+    }
+
+    button {
+        height: 30px;
+        border: 0px;
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 20px;
+        vertical-align: middle;
+    }
+</style>
+
+<body>
+    <div class="fly">
+
+    </div>
+    <div class="user">
+        <div class="userpush">
+            <span>欢迎吐槽:</span>
+            <input type="text" placeholder="输入您想吐槽的">
+            <button>发送</button>
+        </div>
+    </div>
+
+
+    <script>
+        // 1. 获取元素
+        var fly = document.querySelector('.fly');
+        var button = document.querySelector('button');
+        var input = document.querySelector('input');
+
+
+        var timeId; // 存储定时器
+        var timeId1
+        var txt = []; //存储之前的创建元素
+        button.onclick = function () {
+            //在 下次点击 时候清除之前的定时器
+            if (timeId && timeId1) {
+                clearInterval(timeId);
+                clearInterval(timeId1)
+            }
+            if (txt) {
+
+                timeId1 = setInterval(function () {
+
+                    for (var i = 0; i < txt.length; i++) {
+                        var txtLeft = txt[i].offsetLeft;
+                        var txtwidth = txt[i].offsetWidth;
+                        // console.log(txtLeft)
+                        txtLeft -= 10;
+                        txt[i].style.left = txtLeft + 'px';
+                    }
+
+                }, 200)
+                // txt = [];
+            }
+            //3.获取fly区域的高度
+            var flyHeight = fly.offsetHeight;
+            // console.log(flyHeight);
+            // console.log(input.value);
+            var height = getRandom(0, flyHeight);
+            //4.创建p元素
+            var p = document.createElement('p');
+            txt.push(p)
+            //给创建的元素谈价样式 及内容
+            // p.innerText = '';
+            p.innerText = input.value;
+            p.style.position = 'absolute';
+            p.style.top = height + 'px';
+            p.style.right = 0 + 'px';
+            //将创建出的元素渲染到fly中
+
+            fly.appendChild(p);
+            //获取创建的元素 让他自动移动
+
+            var pChild = fly.children;
+            var right = 0;
+
+            timeId = setInterval(function () {
+                // console.log(fly.children);
+                right += 10;
+
+                for (var i = 0; i < pChild.length; i++) {
+                    // console.log(pChild[i].offsetWidth)
+                    pChild[i].setAttribute('index', i);
+                    pChild[i].style.color = 'red';
+                    pChild[i].style.right = right + 'px';
+                    //pLeft是fly左边边框 的距离加上自己本身宽度
+
+                    var pLeft = pChild[i].offsetLeft + pChild[i].offsetWidth;
+
+                    if (pLeft <= 0) {
+                        fly.removeChild(pChild[i]);
+
+                        clearInterval(timeId);
+                    }
+                }
+            }, 200)
+        }
+
+        // input.value = '';
+        //随机函数
+        function getRandom(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+    </script>
+</body>
+
+</html>

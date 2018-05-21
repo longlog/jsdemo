@@ -31,7 +31,16 @@
     <script>
         var game = new Game();
         game.start();
+
+        // 贪吃蛇的思路:
+        //  1.创建一个Foo的构造函数   里面 含有食物的width,height, bgc ,x坐标y坐标
+        // 1.2在他的原型那个上面有一个drawing的方法  来创建随机位置的食物  并限制食物的最大的位置
+        // 2. 创建一个snake的构造函数 里面 width height bgc 初始位置  移动的方向
+        // 2.1 创建一个drawing 的方法 给渲染出snake
+        // 2.2 创建一move的方法  来控制移动得方向 
+        // 3.1 创建一个game对象  并创建一个start的方法 来是游戏
     </script>
+
 </body>
 
 </html>
