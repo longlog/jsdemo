@@ -25,7 +25,7 @@
         this.x = Tool.getRandom(0, box.offsetWidth / this.width - 1) * this.width;
         this.y = Tool.getRandom(0, box.offsetHeight / this.height - 1) * this.height;
 
-        console.log(this.x, this.y);
+        // console.log(this.x, this.y);
 
         smallFood.style.left = this.x + 'px';
         smallFood.style.top = this.y + 'px';

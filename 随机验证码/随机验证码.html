@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>随机数字验证码</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            margin: 100px auto;
+            width: 400px;
+            height: 200px;
+        }
+
+        input {
+            width: 200px;
+            height: 30px;
+            vertical-align: middle;
+        }
+
+        span {
+            display: inline-block;
+            width: 100px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            letter-spacing: 4px;
+            vertical-align: middle;
+            background: skyblue;
+            border: 2px solid skyblue;
+        }
+
+        button {
+            height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <input type="text">
+        <span></span>
+        <button id="btn">登录</button>
+    </div>
+
+    <script>
+        var btn = document.getElementById('btn');
+        var span = document.getElementsByTagName('span')[0];
+        var input = document.getElementsByTagName('input')[0];
+
+        function num() {
+            //获取随机的6位数字
+            return String(Math.random()).substring(2, 8);
+        }
+        span.innerText = num();
+        btn.onclick = function () {
+            judge()
+        }
+
+        function judge() {
+            var inVale = input.value;
+            if (input.value == '') {
+                alert('请输入验证码');
+            } else if (inVale != span.innerText) {
+                //当验证码输错是重新获取一次验证码
+                alert('您输入的验证码错误 请重新输入');
+                span.innerText = num();
+            } else {
+                alert('欢迎登录!!')
+            }
+        }
+    </script>
+</body>
+
+</html>
