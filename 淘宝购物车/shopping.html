@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>淘宝购物车</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+    <div class="mian">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox" class="all">全选
+                    </th>
+                    <th>商品</th>
+                    <th>单价</th>
+                    <th>数量</th>
+                    <th>小计</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input type="checkbox" name="" id="">
+                    </td>
+                    <td class="commodity">
+                        <img src="img/1.jpg" alt="">
+                        <span class="name">龟书</span>
+                    </td>
+                    <td>
+                        <span>99.0</span>
+                    </td>
+                    <td>
+                        <button class="minu">-</button>
+                        <p>0</p>
+                        <button class="add">+</button>
+                    </td>
+                    <td>
+                        <span class="unit-price">99.0</span>
+                    </td>
+                    <td>
+                        <a href="javascript:">删除</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox">
+                    </td>
+                    <td class="commodity">
+                        <img src="img/2.jpg" alt="">
+                        <span class="name">面向对象程序设计</span>
+                    </td>
+                    <td>
+                        <span>69.0</span>
+                    </td>
+                    <td>
+                        <button class="minu">-</button>
+                        <p>0</p>
+                        <button class="add">+</button>
+                    </td>
+                    <td>
+                        <span class="unit-price">69.0</span>
+                    </td>
+                    <td>
+                        <a href="javascript:">删除</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox">
+                    </td>
+                    <td class="commodity">
+                        <img src="img/3.jpg" alt="">
+                        <span class="name">犀牛书</span>
+                    </td>
+                    <td>
+                        <span>199.0</span>
+                    </td>
+                    <td>
+                        <button class="minu">-</button>
+                        <p>0</p>
+                        <button class="add">+</button>
+                    </td>
+                    <td>
+                        <span class="unit-price">199.0</span>
+                    </td>
+                    <td>
+                        <a href="javascript:">删除</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox">
+                    </td>
+                    <td class="commodity">
+                        <img src="img/4.jpg" alt="">
+                        <span class="name">红宝石书</span>
+                    </td>
+                    <td>
+                        <span>89.0</span>
+                    </td>
+                    <td>
+                        <button class="minu">-</button>
+                        <p>0</p>
+                        <button class="add">+</button>
+                    </td>
+                    <td>
+                        <span class="unit-price">89.0</span>
+                    </td>
+                    <td>
+                        <a href="javascript:">删除</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox">
+                    </td>
+                    <td class="commodity">
+                        <img src="img/5.jpg" alt="">
+                        <span class="name">锋利的jQuery</span>
+                    </td>
+                    <td>
+                        <span>49.0</span>
+                    </td>
+                    <td>
+                        <button class="minu">-</button>
+                        <p>0</p>
+                        <button class="add">+</button>
+                    </td>
+                    <td>
+                        <span class="unit-price">49.0</span>
+                    </td>
+                    <td>
+                        <a href="javascript:">删除</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="sum">
+            <ul>
+                <li>
+                    <input type="checkbox" class="all">全选</li>
+                <li>
+                    <span class="del">删除</span>
+                </li>
+                <li>
+                    已选商品
+                    <span class="inall">0</span> 件
+                </li>
+                <li>
+                    合计:
+                    <span class="inAllSum">00.00</span>
+                </li>
+                <li>
+                    结算
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script src="js/jquery-1.12.4.min.js"></script>
+    <script>
+        $(function () {
+            //全选
+            $('.all').click(function () {
+
+                $('tbody input').prop('checked', $(this).prop('checked'));
+
+            })
+
+            //数量选择
+            $('.add').click(function () {
+                var i = parseInt($(this).siblings('p').text());
+                i++;
+                $(this).siblings('p').text(i);
+                var inall = 0; //设置初始值
+                var sum = 0; //总价格初始值
+                var all = $('p').each(function (i) {
+                    //遍历每一个p的文本 转化number
+                    var unit = parseInt($(this).text());
+                    var price = parseInt($('.unit-price')[i].innerText)
+                    
+                    unit_sum = unit * price; //每一本书的数量和单价的和
+                    sum += unit_sum; //将每一数进行累加
+                    inall += unit;
+                })
+
+                $('.inall').text(inall);
+                $('.inAllSum').text(sum + '.00'); //总价格
+
+                if (i > 0) {
+                    $(this).parent().siblings().find('input').prop('checked', true);
+                }
+            })
+
+            $('.minu').click(function () {
+                var i = parseInt($(this).siblings('p').text());
+                i--;
+                if (i < 0) {
+                    i = 0;
+                }
+                $(this).siblings('p').text(i);
+                var inall = 0; //设置初始值
+                var sum = 0;
+
+                var all = $('p').each(function (i) {
+                    //遍历每一个p的文本 转化number
+                    var unit = parseInt($(this).text());
+                    var price = parseInt($('.unit-price')[i].innerText)
+
+                    unit_sum = unit * price; //每一本书的数量和单价的和
+                    sum += unit_sum; //将每一数进行累加
+                    inall += unit;
+                })
+                $('.inall').text(inall);
+                $('.inAllSum').text(sum + '.00'); //将结果显示在页面上
+                if (i == 0) {
+                    $(this).parent().siblings().find('input').prop('checked', false);
+                }
+
+            })
+            //删除行
+            $('td a').click(function () {
+
+                var sum = parseInt($('.inAllSum').text());
+                //删除行的书籍数量
+                var num = parseInt($(this).parent().siblings().find('p').text());
+                //删除行书籍的单价
+                var price = parseInt($(this).parent().siblings().find('.unit-price').text());
+                console.log(price, num);
+                sum = sum - (num * price);
+                $('.inAllSum').text(sum + '.00')
+                $(this).parent().parent().remove();
+            })
+
+            //全部删除
+            $('.del').click(function () {
+                $('tbody').remove();
+            })
+
+        })
+    </script>
+</body>
+
+</html>

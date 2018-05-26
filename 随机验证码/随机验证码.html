@@ -61,7 +61,7 @@
         span.innerText = num();
         btn.onclick = function () {
             judge()
-        }
+        };
 
         function judge() {
             var inVale = input.value;
@@ -70,11 +70,12 @@
             } else if (inVale != span.innerText) {
                 //当验证码输错是重新获取一次验证码
                 alert('您输入的验证码错误 请重新输入');
+                input.value = ''; //清空输入框的内容
                 span.innerText = num();
             } else {
-                alert('欢迎登录!!')
+                alert('欢迎登录!!');
             }
-        }
+        };
     </script>
 </body>
 
