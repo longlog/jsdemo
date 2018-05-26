@@ -144,21 +144,21 @@
         <div class="sum">
             <ul>
                 <li>
-                    <input type="checkbox" class="all">全选</li>
-                <li>
-                    <span class="del">删除</span>
-                </li>
-                <li>
-                    已选商品
-                    <span class="inall">0</span> 件
-                </li>
-                <li>
-                    合计:
-                    <span class="inAllSum">00.00</span>
-                </li>
-                <li>
-                    结算
-                </li>
+
+                    <li>
+                        <span class="del">删除</span>
+                    </li>
+                    <li>
+                        已选商品
+                        <span class="inall">0</span> 件
+                    </li>
+                    <li>
+                        合计:
+                        <span class="inAllSum">00.00</span>
+                    </li>
+                    <li>
+                        结算
+                    </li>
             </ul>
         </div>
     </div>
@@ -183,7 +183,7 @@
                     //遍历每一个p的文本 转化number
                     var unit = parseInt($(this).text());
                     var price = parseInt($('.unit-price')[i].innerText)
-                    
+
                     unit_sum = unit * price; //每一本书的数量和单价的和
                     sum += unit_sum; //将每一数进行累加
                     inall += unit;
@@ -240,6 +240,8 @@
             //全部删除
             $('.del').click(function () {
                 $('tbody').remove();
+                $('.inall').text('0');
+                $('.inAllSum').text('00.00');
             })
 
         })
